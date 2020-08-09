@@ -5,6 +5,7 @@
 
 # TOC
 - Nginx - nginx-1.18.0 Dockerfile
+- Nginx - apache-tomcat-9.0.37 Dockerfile
 
 --
 
@@ -23,7 +24,7 @@ docker rm -f $(docker ps -aq)
 docker rmi $(docker images -q)
 ```
 
---
+---
 
 # 温馨提示
 此 DockerFiles 下所有环境都是通过 Centos:7.6.1810 构建编写。均采用官方软件包，如果构建镜像时下载软件包较慢，建议先下载好软件包到对应目录，并修改如下 Dockerfile (以Nginx为例)：
