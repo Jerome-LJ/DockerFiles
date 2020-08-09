@@ -5,7 +5,7 @@
 
 # TOC
 - Nginx - nginx-1.18.0 Dockerfile
-- Nginx - apache-tomcat-9.0.37 Dockerfile
+- Tomcat - apache-tomcat-9.0.37 Dockerfile
 
 --
 
