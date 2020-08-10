@@ -5,9 +5,15 @@
 
 # TOC
 - Nginx - nginx-1.18.0 Dockerfile
-- Tomcat - apache-tomcat-9.0.37 Dockerfile
+> $ docker build -t nginx:v1.0 .
 
---
+- Tomcat - apache-tomcat-9.0.37 Dockerfile
+> $ docker build -t tomcat:v1.0 .
+
+- Filebeat - filebeat-7.8.1 docker-compose
+> $ docker-compose up -d
+
+---
 
 # Docker 常用命令
 ```bash

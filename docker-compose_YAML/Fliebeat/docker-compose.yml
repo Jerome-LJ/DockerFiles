@@ -1,0 +1,18 @@
+version: "3"
+services:
+    filebeat:
+        user: root
+        container_name: filebeat
+        image: docker.elastic.co/beats/filebeat:7.8.1
+        #设置labels
+        labels:
+          service: fliebeat
+        #logging设置增加labels.service，logstash可设置标签过滤
+        logging:
+          options:
+            labels: "service"
+        volumes:
+            #挂载宿主机配置文件到容器内
+            - ~/filebeat/conf/filebeat.yml:/usr/share/filebeat/filebeat.yml
+            #挂载宿主机日志目录到容器内，方便filebeat收集其它容器的日志
+            - /var/lib/docker/containers/:/mnt/containers/
