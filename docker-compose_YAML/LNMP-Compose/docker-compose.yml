@@ -1,0 +1,85 @@
+version: '3'
+services:
+
+    # MySQL Container
+    mysql:
+        hostname: lnmp_mysql
+        container_name: mysql57
+        image: mysql:5.7
+        restart: always
+        ports: 
+            - "${MYSQL_PORT}:3306"
+        volumes:
+            - ./mysql/data/:/var/lib/mysql/:rw
+            - ./mysql/my.cnf:/etc/mysql/my.cnf:ro
+            - ./mysql/log/:/var/log/mysql/:rw
+        working_dir: /var/lib/mysql
+        environment:
+            #初始密码
+            - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+            - TZ=Asia/Shanghai
+        networks:
+            - lnmp
+
+    # PHP Container
+    php:
+        hostname: lnmp_php
+        container_name: php74
+        build: ./php
+        depends_on:
+            - mysql
+            - redis
+        restart: always
+        ports:
+            - "${PHP_PORT}:9000"
+        volumes:
+            - ./php/www/:/var/www/html:rw
+            - ./php/conf/php.ini:/usr/local/etc/php/php.ini:ro
+            - ./php/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
+            - ./php/log/:/var/log/:rw
+        working_dir: /var/www
+        environment:
+            - TZ=Asia/Shanghai
+        networks:
+            - lnmp
+
+    # Nginx Container
+    nginx:
+        hostname: lnmp_nginx
+        container_name: nginx
+        image: nginx:1.18.0
+        depends_on:
+            - php
+        restart: always
+        ports:
+            - "${HTTP_PORT}:80"
+            - "${HTTPS_PORT}:443"
+        volumes:
+            - ./php/www/:/var/www/html/:rw
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+            - ./nginx/conf.d/:/etc/nginx/conf.d/:ro
+            - ./nginx/log/:/var/log/nginx/:rw
+        working_dir: /etc/nginx
+        environment:
+            - TZ=Asia/Shanghai
+        networks:
+            - lnmp
+
+    # Redis Container
+    redis:
+        hostname: lnmp_redis
+        container_name: redis
+        image: redis:6.0.6
+        ports:
+            - "${REDIS_PORT}:6379"
+        volumes:
+            - ./redis/data:/usr/local/redis/data/:rw
+            - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
+            - ./redis/log/redis.log:/var/log/redis/redis.log:rw
+        command: redis-server /usr/local/etc/redis/redis.conf
+        networks:
+            - lnmp
+
+networks:
+  lnmp:
+    driver: bridge

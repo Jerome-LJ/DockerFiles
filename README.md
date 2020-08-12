@@ -5,14 +5,25 @@
 
 # TOC
 - Nginx - nginx-1.18.0 Dockerfile
-> $ docker build -t nginx:v1.0 .
-
+```
+$ cd ./DockerFiles/nginx/
+$ docker build -t nginx:v1.0 .
+```
 - Tomcat - apache-tomcat-9.0.37 Dockerfile
-> $ docker build -t tomcat:v1.0 .
-
+```
+$ cd ./DockerFiles/tomcat/
+$ docker build -t tomcat:v1.0 .
+```
 - Filebeat - filebeat-7.8.1 docker-compose
-> $ docker-compose up -d
-
+```
+$ cd ./DockerFiles/Docker-Compose_YAML/Fliebeat/
+$ docker-compose up -d
+```
+- LNMP+Redis - LNMP/DNMP docker-compose
+```
+$ cd ./DockerFiles/docker-compose_YAML/LNMP-Compose/
+$ docker-compose up --build -d
+```
 ---
 
 # Docker 常用命令
