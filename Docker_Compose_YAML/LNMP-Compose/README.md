@@ -8,7 +8,7 @@ Redis: 6.0.6
 ```
 # 目录结构
 ```
-├── docker-compose_YAML
+├── Docker_Compose_YAML
     └── LNMP-Compose
         ├── docker-compose.yml      Docker 服务配置示例文件
         ├── mysql                   MySQL 目录
@@ -41,14 +41,11 @@ Redis: 6.0.6
 $ cd ~/
 $ git clone https://github.com/Jerome-LJ/DockerFiles.git
 
-$ cd ./DockerFiles/docker-compose_YAML/LNMP-Compose/
+$ cd ./DockerFiles/Docker_Compose_YAML/LNMP-Compose/
 $ cp .env-example .env
 
 # 配置数据库密码、端口等
 $ vim .env
-
-# 设置权限
-$ chmod 777 ./mysql/socket/
 
 # 构建镜像并启动容器
 $ docker-compose up --build -d

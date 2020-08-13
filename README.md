@@ -21,7 +21,7 @@ $ docker-compose up -d
 ```
 - LNMP+Redis - LNMP/DNMP docker-compose
 ```
-$ cd ./DockerFiles/docker-compose_YAML/LNMP-Compose/
+$ cd ./DockerFiles/Docker_Compose_YAML/LNMP-Compose/
 $ docker-compose up --build -d
 ```
 ---
