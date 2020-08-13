@@ -1,0 +1,19 @@
+version: "3"
+services: 
+    redis:
+        container_name: redis
+        image: redis:6.0.6-alpine
+        restart: always
+        networks:
+            - default
+
+    web:
+        container_name: web
+        build: .
+        restart: always
+        ports:
+            - "${FLASK_PORT}:${FLASK_PORT}"
+        environment: 
+            REDIS_HOST: redis
+        networks:
+            - default
