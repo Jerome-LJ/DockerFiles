@@ -1,0 +1,86 @@
+version: '3'
+services:
+
+    # Elasticsearch Container
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:${ELKB_VERSION}
+        container_name: elasticsearch
+        restart: always
+        environment:
+            - node.name=elasticsearch
+            - cluster.name=docker-cluster
+            - network.host=0.0.0.0
+            - discovery.seed_hosts=elasticsearch
+            #- cluster.initial_master_nodes=elasticsearch
+            - discovery.type=single-node
+            - gateway.recover_after_data_nodes=1
+            - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+            nofile:
+                soft: 65536
+                hard: 65536
+        volumes:
+            - ./elasticsearch/es-node-01/data/:/usr/share/elasticsearch/data/:rw
+            - ./elasticsearch/es-node-01/logs/:/usr/share/elasticsearch/logs/:rw
+        expose:
+            - "${ELASTIC_HTTP_PORT}"
+        ports:
+            - "${ELASTIC_HTTP_PORT}:9200"
+            - "${ELASTIC_TCP_PORT}:9300"
+        networks:
+            - elkb-net
+
+    # Logstash Container
+    logstash:
+        image: docker.elastic.co/logstash/logstash:${ELKB_VERSION}
+        container_name: logstash
+        restart: always
+        environment:
+            - http.host="0.0.0.0"
+            - xpack.monitoring.enabled=true
+            - xpack.monitoring.elasticsearch.hosts=["http://172.20.27.20:9200"]
+            - "LS_JAVA_OPTS=-Xmx256m -Xms256m"
+        volumes:
+            - ./logstash/data/:/usr/share/logstash/data/:rw
+            - ./logstash/pipeline/:/usr/share/logstash/pipeline/:rw
+        ports:
+            - "${LOG_TCP_PORT}:5000/tcp"
+            - "${LOG_UDP_PORT}:5000/udp"
+            - "${LOG_BEATS_PORT}:5044"
+        expose:
+            - "${LOG_BEATS_PORT}"
+        depends_on:
+            - elasticsearch
+        networks:
+            - elkb-net
+
+    # Kibana Container
+    kibana:
+        image: docker.elastic.co/kibana/kibana:${ELKB_VERSION}
+        container_name: kibana
+        restart: always
+        environment:
+            - ELASTICSEARCH_HOSTS=["http://elasticsearch:9200"]
+            - xpack.monitoring.enabled=true
+            - monitoring.ui.elasticsearch.hosts=["http://elasticsearch:9200"]
+        volumes:
+            - ./kibana/data/:/usr/share/kibana/data/:rw
+        ports:
+            - "${kIBANA_PORT}:5601"
+        expose:
+            - "${kIBANA_PORT}"
+        depends_on:
+            - elasticsearch
+        networks:
+            - elkb-net
+
+volumes:
+    elasticsearch:
+    logstash:
+
+networks:
+    elkb-net:
+        driver: bridge

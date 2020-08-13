@@ -14,14 +14,23 @@ $ docker build -t nginx:v1.0 .
 $ cd ./DockerFiles/tomcat/
 $ docker build -t tomcat:v1.0 .
 ```
-- Filebeat - filebeat-7.8.1 docker-compose
+- ELKB - ELKB-7.8.1 docker-compose
 ```
-$ cd ./DockerFiles/Docker-Compose_YAML/Fliebeat/
+#ELK
+$ cd ./DockerFiles/Docker-Compose_YAML/ELKB-Compose/
+$ docker-compose up --build -d
+#Fliebeat
+$ cd ./DockerFiles/Docker-Compose_YAML/ELKB-Compose/Fliebeat/
 $ docker-compose up -d
 ```
 - LNMP+Redis - LNMP/DNMP docker-compose
 ```
 $ cd ./DockerFiles/Docker_Compose_YAML/LNMP-Compose/
+$ docker-compose up --build -d
+```
+- Flask+Redis -  Flask+Redis Web docker-compose
+```
+$ cd ./DockerFiles/Docker_Compose_YAML/Flask-Web-Compose/
 $ docker-compose up --build -d
 ```
 ---
