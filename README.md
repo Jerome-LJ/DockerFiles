@@ -53,25 +53,4 @@ docker rmi $(docker images -q)
 ---
 
 # 温馨提示
-此 DockerFiles 下所有环境都是通过 Centos:7.6.1810 构建编写。均采用官方软件包，如果构建镜像时下载软件包较慢，建议先下载好软件包到对应目录，并修改如下 Dockerfile (以Nginx为例)：
-```bash
-# 修改之前
-RUN yum install -y gcc make pcre-devel zlib-devel zlib tar              \
-    && yum clean all    \
-    && curl -SL http://nginx.org/download/nginx-1.18.0.tar.gz           \
-    | tar -xzC /opt    \
-    && cd /opt/nginx-1.18.0         \
-    && ./configure --prefix=/usr/local/nginx && make && make install    \
-    && rm -rf /opt/nginx-1.18.0*    \
-    && echo '<h1>Hello, Docker!</h1>' > /usr/local/nginx/html/index.html
-
-# 修改之后
-ADD nginx-1.18.0.tar.gz .
-
-RUN yum install -y gcc make pcre-devel zlib-devel zlib tar              \
-    && yum clean all    \
-    && cd /opt/nginx-1.18.0         \
-    && ./configure --prefix=/usr/local/nginx && make && make install    \
-    && rm -rf /opt/nginx-1.18.0*    \
-    && echo '<h1>Hello, Docker!</h1>' > /usr/local/nginx/html/index.html
-```
+此 DockerFiles 下所有环境都是通过 Centos:7.6.1810 构建编写。均采用官方软件包，如果构建镜像时下载软件包较慢，建议先下载好软件包到对应目录，并修改如下 Dockerfile。
