@@ -46,6 +46,7 @@ services:
         volumes:
             - ./logstash/data/:/usr/share/logstash/data/:rw
             - ./logstash/pipeline/:/usr/share/logstash/pipeline/:rw
+            - ./logstash/log/:/usr/share/logstash/log/:rw
         ports:
             - "${LOG_TCP_PORT}:5000/tcp"
             - "${LOG_UDP_PORT}:5000/udp"
@@ -72,6 +73,25 @@ services:
             - "${kIBANA_PORT}:5601"
         expose:
             - "${kIBANA_PORT}"
+        depends_on:
+            - elasticsearch
+        networks:
+            - elkb-net
+
+    # Cerebro Container
+    cerebro:
+        image: lmenezes/cerebro:latest
+        container_name: cerebro
+        restart: always
+        volumes:
+            - ./cerebro/logs/:/opt/cerebro/logs/:rw
+            - ./cerebro/conf/application.conf:/opt/cerebro/conf/application.conf:ro
+        ports:
+            - "${CEREBRO_PORT}:9000"
+        expose:
+            - "${CEREBRO_PORT}"
+        command:
+          - -Dhosts.0.host=http://elasticsearch:9200
         depends_on:
             - elasticsearch
         networks:

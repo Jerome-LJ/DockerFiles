@@ -14,7 +14,7 @@ $ docker build -t nginx:v1.0 .
 $ cd ./DockerFiles/tomcat/
 $ docker build -t tomcat:v1.0 .
 ```
-- ELKB - ELKB-7.8.1 docker-compose
+- ELKB+Cerebro - ELKB-7.8.1 docker-compose
 ```
 #ELK
 $ cd ./DockerFiles/Docker-Compose_YAML/ELKB-Compose/
