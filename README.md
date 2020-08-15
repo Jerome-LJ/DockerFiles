@@ -19,6 +19,11 @@ $ docker build -t tomcat:v1.0 .
 $ cd ./DockerFiles/Python/
 $ docker build -t python:v1.0 .
 ```
+- Golang - Golang-latest Dockerfile
+```
+$ cd ./DockerFiles/Golang/
+$ docker build -t golang:v1.0 .
+```
 - ELKB+Cerebro - ELKB-7.8.1 docker-compose
 ```
 #ELK
