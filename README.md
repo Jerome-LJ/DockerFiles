@@ -6,13 +6,18 @@
 # TOC
 - Nginx - nginx-1.18.0 Dockerfile
 ```
-$ cd ./DockerFiles/nginx/
+$ cd ./DockerFiles/Nginx/
 $ docker build -t nginx:v1.0 .
 ```
 - Tomcat - apache-tomcat-9.0.37 Dockerfile
 ```
-$ cd ./DockerFiles/tomcat/
+$ cd ./DockerFiles/Tomcat/
 $ docker build -t tomcat:v1.0 .
+```
+- Python - Python-3.8.5 Dockerfile
+```
+$ cd ./DockerFiles/Python/
+$ docker build -t python:v1.0 .
 ```
 - ELKB+Cerebro - ELKB-7.8.1 docker-compose
 ```
@@ -53,4 +58,4 @@ docker rmi $(docker images -q)
 ---
 
 # 温馨提示
-此 DockerFiles 下所有环境都是通过 Centos:7.6.1810 构建编写。均采用官方软件包，如果构建镜像时下载软件包较慢，建议先下载好软件包到对应目录，并修改如下 Dockerfile。
+此 DockerFiles 下所有环境都是通过 alpine:latest 构建编写。均采用官方软件包，如果构建镜像时下载软件包较慢，建议先下载好软件包到对应目录，并修改如下 Dockerfile。
