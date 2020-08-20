@@ -7,8 +7,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
 RUN apk --no-cache add go git ca-certificates tzdata \
     && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone \
-    && apk del tzdata \
-    && chmod -R 777 /go
+    && apk del tzdata
 
 ENV GOROOT /usr/lib/go
 ENV GOPATH /usr/lib/go/bin
